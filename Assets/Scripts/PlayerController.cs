@@ -124,21 +124,21 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    //private void OnCollisionStay2D(Collision2D other)
-    //{
-    //    if (other.gameObject.CompareTag("GroundTileMap"))
-    //    {
-    //        isGrounded = true;
-    //    }
-    //}
+    private void OnCollisionStay2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("GroundTileMap"))
+        {
+            isGrounded = true;
+        }
+    }
 
-    //private void OnCollisionExit2D(Collision2D other)
-    //{
-    //    if (other.gameObject.CompareTag("GroundTileMap"))
-    //    {
-    //        isGrounded = false;
-    //    }
-    //}
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("GroundTileMap"))
+        {
+            isGrounded = false;
+        }
+    }
 
     /*public void Crouch(bool crouch)
     {
