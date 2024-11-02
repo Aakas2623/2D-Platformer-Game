@@ -9,12 +9,12 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb2d;
 
-    //private bool isGrounded = false;
+    private bool isGrounded = false;
     //private bool playerJumpRequest = false;
 
-    public Vector2 boxSize;
-    public float castDistance;
-    public LayerMask groundLayer;
+    //public Vector2 boxSize;
+    //public float castDistance;
+    //public LayerMask groundLayer;
 
     /*private BoxCollider2D boxCol;
     private Vector2 boxColInitSize;
@@ -56,22 +56,22 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public bool isGrounded()
-    {
-        if (Physics2D.BoxCast(transform.position, boxSize, 0, -transform.up, castDistance, groundLayer))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
+    //public bool isGrounded()
+    //{
+    //    if (Physics2D.BoxCast(transform.position, boxSize, 0, -transform.up, castDistance, groundLayer))
+    //    {
+    //        return true;
+    //    }
+    //    else
+    //    {
+    //        return false;
+    //    }
+    //}
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireCube(transform.position - transform.up * castDistance, boxSize);
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.DrawWireCube(transform.position - transform.up * castDistance, boxSize);
+    //}
 
     private void MoveCharacter(float horizontal, float vertical)
     {
@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
         transform.position = position;
 
         //move player vertically
-        if(vertical > 0 && isGrounded())
+        if(vertical > 0 /*&& isGrounded*/)
         {
             //animator.SetBool("Jump", true);
             //playerJumpRequest = true;
@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviour
 
     //private void OnCollisionStay2D(Collision2D other)
     //{
-    //    if (other.gameObject.CompareTag("Ground"))
+    //    if (other.gameObject.CompareTag("GroundTileMap"))
     //    {
     //        isGrounded = true;
     //    }
@@ -134,7 +134,7 @@ public class PlayerController : MonoBehaviour
 
     //private void OnCollisionExit2D(Collision2D other)
     //{
-    //    if (other.gameObject.CompareTag("Ground"))
+    //    if (other.gameObject.CompareTag("GroundTileMap"))
     //    {
     //        isGrounded = false;
     //    }
