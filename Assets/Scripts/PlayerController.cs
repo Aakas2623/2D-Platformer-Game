@@ -8,7 +8,14 @@ public class PlayerController : MonoBehaviour
     public float jump;
 
     private Rigidbody2D rb2d;
-    
+
+    //private bool isGrounded = false;
+    //private bool playerJumpRequest = false;
+
+    public Vector2 boxSize;
+    public float castDistance;
+    public LayerMask groundLayer;
+
     /*private BoxCollider2D boxCol;
     private Vector2 boxColInitSize;
     private Vector2 boxColInitOffset;*/
@@ -49,6 +56,23 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public bool isGrounded()
+    {
+        if (Physics2D.BoxCast(transform.position, boxSize, 0, -transform.up, castDistance, groundLayer))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(transform.position - transform.up * castDistance, boxSize);
+    }
+
     private void MoveCharacter(float horizontal, float vertical)
     {
         //move player hoizonatlly
@@ -57,10 +81,19 @@ public class PlayerController : MonoBehaviour
         transform.position = position;
 
         //move player vertically
-        if(vertical > 0)
+        if(vertical > 0 && isGrounded())
         {
+            //animator.SetBool("Jump", true);
+            //playerJumpRequest = true;
             rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
         }
+
+        //if (playerJumpRequest)
+        //{
+        //    rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
+        //    isGrounded = false;
+        //    playerJumpRequest = false;
+        //}
     }
 
     private void PlayMovementAnimation(float horizontal, float vertical)
@@ -90,6 +123,22 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+
+    //private void OnCollisionStay2D(Collision2D other)
+    //{
+    //    if (other.gameObject.CompareTag("Ground"))
+    //    {
+    //        isGrounded = true;
+    //    }
+    //}
+
+    //private void OnCollisionExit2D(Collision2D other)
+    //{
+    //    if (other.gameObject.CompareTag("Ground"))
+    //    {
+    //        isGrounded = false;
+    //    }
+    //}
 
     /*public void Crouch(bool crouch)
     {
@@ -125,8 +174,8 @@ public class PlayerController : MonoBehaviour
         }
     }*/
 
-    
-    
+
+
 }
 
 
