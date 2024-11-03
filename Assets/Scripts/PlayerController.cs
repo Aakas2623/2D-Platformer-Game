@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public ScoreController scoreController;
     public Animator animator;
 
     public float speed;
@@ -138,6 +140,12 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = false;
         }
+    }
+
+    public void PickUpKey()
+    {
+        Debug.Log("Pick up the key");
+        scoreController.IncreaseScore(10);
     }
 
     /*public void Crouch(bool crouch)
