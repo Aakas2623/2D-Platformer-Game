@@ -1,5 +1,7 @@
 using System;
+using TMPro.Examples;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -128,7 +130,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("GroundTileMap"))
+        if (other.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
         }
@@ -136,10 +138,22 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("GroundTileMap"))
+        if (other.gameObject.CompareTag("Ground"))
         {
             isGrounded = false;
         }
+    }
+
+    public void KillPlayer()
+    {
+        Debug.Log("Player killed");
+
+        ReloadLevel();
+    }
+
+    private void ReloadLevel()
+    {
+        SceneManager.LoadScene(0);
     }
 
     public void PickUpKey()
