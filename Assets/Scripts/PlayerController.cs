@@ -6,12 +6,21 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public ScoreController scoreController;
-    public Animator animator;
+    private Animator animator;
 
     public float speed;
     public float jump;
 
     private Rigidbody2D rb2d;
+
+    [SerializeField] private SpriteRenderer[] hearts;
+
+    private GameObject deathUIPanel;
+
+    private int health;
+    private Camera mainCamera;
+
+    private bool isDead = false;
 
     private bool isGrounded = false;
     //private bool playerJumpRequest = false;
@@ -30,12 +39,55 @@ public class PlayerController : MonoBehaviour
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    /*void Start()
+    private void Start()
     {
         //Fetching initial collider properties
-        boxColInitSize = boxCol.size;
-        boxColInitOffset = boxCol.offset;
-    }*/
+        //boxColInitSize = boxCol.size;
+        //boxColInitOffset = boxCol.offset;
+        health = hearts.Length;
+
+        mainCamera = Camera.main;
+    }
+
+    public void DecreaseHealth()
+    {
+        health--;
+
+        HandleHealthUI();
+        if (health <= 0)
+        {
+            PlayDeathAnimation();
+            PlayerDeath();
+        }
+    }
+
+    public void PlayerDeath()
+    {
+        isDead = true;
+        mainCamera.transform.parent = null;
+        deathUIPanel.gameObject.SetActive(true);
+        rb2d.constraints = RigidbodyConstraints2D.FreezePosition;
+        ReloadLevel();
+    }
+
+    public void PlayDeathAnimation()
+    {
+        animator.SetTrigger("Die");
+    }
+
+    private void ReloadLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void HandleHealthUI()
+    {
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            hearts[i].color = (i < health) ? Color.red : Color.black;
+        }
+    }
+
 
     // Update is called once per frame
     private void Update()
@@ -151,10 +203,10 @@ public class PlayerController : MonoBehaviour
         ReloadLevel();
     }
 
-    private void ReloadLevel()
-    {
-        SceneManager.LoadScene(0);
-    }
+    //private void ReloadLevel()
+    //{
+    //    SceneManager.LoadScene(0);
+    //}
 
     public void PickUpKey()
     {

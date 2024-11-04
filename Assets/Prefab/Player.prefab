@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1633731218031596452}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -200,9 +200,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreController: {fileID: 0}
-  animator: {fileID: 2835545025017564746}
   speed: 8
-  jump: 2
+  jump: 5
+  hearts: []
 --- !u!1 &5810053616725934740
 GameObject:
   m_ObjectHideFlags: 0
