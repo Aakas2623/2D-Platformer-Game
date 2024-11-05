@@ -1,9 +1,11 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
     public ScoreController scoreController;
+    public GameOverController gameOverController;
     public Animator animator;
 
     public float speed;
@@ -12,6 +14,16 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb2d;
 
     private bool isGrounded = false;
+
+    //[SerializeField] private SpriteRenderer[] hearts;
+    //[SerializeField] private GameObject deathUIPanel;
+    //[SerializeField] private CanvasRenderer[] hearts;
+
+    //private int health;
+    //private Camera mainCamera;
+
+    //private bool isDead = false;
+
     //private bool playerJumpRequest = false;
 
     //public Vector2 boxSize;
@@ -36,6 +48,53 @@ public class PlayerController : MonoBehaviour
     }*/
 
     // Update is called once per frame
+
+    //private void Start()
+    //{
+    //    //Initializing health with the number of hearts
+    //    health = hearts.Length;
+
+    //    mainCamera = Camera.main;
+    //}
+    //public void DecreaseHealth()
+    //{
+    //    health--;
+
+    //    HandleHealthUI();
+    //    if (health <= 0)
+    //    {
+    //        PlayDeathAnimation();
+    //        PlayerDeath();
+    //    }
+    //}
+
+    //public void PlayerDeath()
+    //{
+    //    isDead = true;
+    //    mainCamera.transform.parent = null;
+    //    deathUIPanel.gameObject.SetActive(true);
+    //    rb2d.constraints = RigidbodyConstraints2D.FreezePosition;
+    //    ReloadLevel();
+    //}
+
+    //public void PlayDeathAnimation()
+    //{
+    //    animator.SetTrigger("Die");
+    //}
+
+    //private void ReloadLevel()
+    //{
+    //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    //}
+
+    //public void HandleHealthUI()
+    //{
+    //    for (int i = 0; i < hearts.Length; i++)
+    //    {
+    //        hearts[i].color = (i < health) ? Color.red : Color.black;
+    //    }
+    //}
+
     private void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
@@ -83,8 +142,9 @@ public class PlayerController : MonoBehaviour
         transform.position = position;
 
         //move player vertically
-        if(vertical > 0 /*&& isGrounded*/)
+        if (vertical > 0 && isGrounded)
         {
+            Debug.Log(vertical);
             //animator.SetBool("Jump", true);
             //playerJumpRequest = true;
             rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
@@ -115,20 +175,22 @@ public class PlayerController : MonoBehaviour
 
         //Jump
         
-        if (vertical > 0)
-        {
-            animator.SetBool("Jump", true);
-        }
-        else 
-        {
-            animator.SetBool("Jump", false);
-        }
 
+            if (vertical > 0)
+            {
+                animator.SetBool("Jump", true);
+            }
+            else
+            {
+                animator.SetBool("Jump", false);
+            }
+
+        
     }
 
     private void OnCollisionStay2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("GroundTileMap"))
+        if (other.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
         }
@@ -136,7 +198,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("GroundTileMap"))
+        if (other.gameObject.CompareTag("Ground"))
         {
             isGrounded = false;
         }
@@ -147,6 +209,20 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Pick up the key");
         scoreController.IncreaseScore(10);
     }
+
+    public void KillPlayer()
+    {
+        Debug.Log("Kill Player");
+        //Destroy(gameObject);
+        gameOverController.PlayerDied();
+        this.enabled = false;
+        //ReloadLevel();
+    }
+
+    //private void ReloadLevel()
+    //{
+    //    SceneManager.LoadScene(0);
+    //}
 
     /*public void Crouch(bool crouch)
     {

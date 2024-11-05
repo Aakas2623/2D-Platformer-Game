@@ -1094,6 +1094,12 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!4 &468631194 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 579804732187554990, guid: 5fc81f9b64fa87946a1589c9f184243e,
+    type: 3}
+  m_PrefabInstance: {fileID: 4301995942628072288}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &599390006
 GameObject:
   m_ObjectHideFlags: 0
@@ -1770,8 +1776,77 @@ Transform:
   - {fileID: 599390009}
   - {fileID: 50595006}
   - {fileID: 6330271808434409243}
+  - {fileID: 468631194}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &4301995942628072288
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2017012644}
+    m_Modifications:
+    - target: {fileID: 579804732187554990, guid: 5fc81f9b64fa87946a1589c9f184243e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 579804732187554990, guid: 5fc81f9b64fa87946a1589c9f184243e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 579804732187554990, guid: 5fc81f9b64fa87946a1589c9f184243e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 579804732187554990, guid: 5fc81f9b64fa87946a1589c9f184243e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 579804732187554990, guid: 5fc81f9b64fa87946a1589c9f184243e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 579804732187554990, guid: 5fc81f9b64fa87946a1589c9f184243e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 579804732187554990, guid: 5fc81f9b64fa87946a1589c9f184243e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 579804732187554990, guid: 5fc81f9b64fa87946a1589c9f184243e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 579804732187554990, guid: 5fc81f9b64fa87946a1589c9f184243e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 579804732187554990, guid: 5fc81f9b64fa87946a1589c9f184243e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4871912379636097427, guid: 5fc81f9b64fa87946a1589c9f184243e,
+        type: 3}
+      propertyPath: m_Name
+      value: Enemy
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5fc81f9b64fa87946a1589c9f184243e, type: 3}
 --- !u!1001 &5937272608905745771
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1780,6 +1855,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1633731218031596452, guid: d8e2120fba42984478b37b3ae7fe4093,
+        type: 3}
+      propertyPath: jump
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1633731218031596452, guid: d8e2120fba42984478b37b3ae7fe4093,
         type: 3}
       propertyPath: scoreController
@@ -1861,12 +1941,12 @@ PrefabInstance:
     - target: {fileID: 7722902384156057470, guid: 268878f2130ef514ca6beb22b5f072c7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.26
+      value: 15.62
       objectReference: {fileID: 0}
     - target: {fileID: 7722902384156057470, guid: 268878f2130ef514ca6beb22b5f072c7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.43
+      value: 5.5
       objectReference: {fileID: 0}
     - target: {fileID: 7722902384156057470, guid: 268878f2130ef514ca6beb22b5f072c7,
         type: 3}
