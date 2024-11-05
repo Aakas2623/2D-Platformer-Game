@@ -5,20 +5,30 @@ using UnityEngine.UI;
 public class GameOverController : MonoBehaviour
 {
 
-    public Button buttonRestart;
+    [SerializeField] private Button buttonRestart;
+    [SerializeField] private Button buttonQuit;
 
     private void Awake()
     {
         buttonRestart.onClick.AddListener(ReloadLevel);
+        buttonQuit.onClick.AddListener(MainMenu);
     }
 
     public void PlayerDied()
     {
-        gameObject.SetActive(true);
+        this.gameObject.SetActive(true);
     }
 
     private void ReloadLevel()
     {
-        SceneManager.LoadScene(1);
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
+        //SceneManager.LoadScene(1);
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(0);
+        this.gameObject.SetActive(false);
     }
 }
