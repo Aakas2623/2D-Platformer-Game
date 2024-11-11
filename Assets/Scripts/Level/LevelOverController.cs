@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelController : MonoBehaviour
+public class LevelOverController : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -9,7 +9,10 @@ public class LevelController : MonoBehaviour
         {
             int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
             SceneManager.LoadScene(currentSceneIndex);
+            int nextSceneIndex = currentSceneIndex + 1;
+            SceneManager.LoadScene(nextSceneIndex);
             Debug.Log("Level Finished");
+            LevelManager.Instance.MarkCurrentLevelComplete();
         }
     }
 }

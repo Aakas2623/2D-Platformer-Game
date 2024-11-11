@@ -6,12 +6,14 @@ public class PlayerController : MonoBehaviour
 {
     public ScoreController scoreController;
     public GameOverController gameOverController;
-    public Animator animator;
+    
+    
+    [SerializeField] private Animator animator;
 
     public float speed;
-    public float jump;
+    [SerializeField] private float jump;
 
-    private Rigidbody2D rb2d;
+    [SerializeField] private Rigidbody2D rb2d;
 
     private bool isGrounded = false;
 
@@ -20,7 +22,7 @@ public class PlayerController : MonoBehaviour
     //[SerializeField] private CanvasRenderer[] hearts;
 
     //private int health;
-    //private Camera mainCamera;
+    private Camera mainCamera;
 
     //private bool isDead = false;
 
@@ -49,12 +51,12 @@ public class PlayerController : MonoBehaviour
 
     // Update is called once per frame
 
-    //private void Start()
+   // private void Start()
     //{
     //    //Initializing health with the number of hearts
     //    health = hearts.Length;
 
-    //    mainCamera = Camera.main;
+        //mainCamera = Camera.main;
     //}
     //public void DecreaseHealth()
     //{
@@ -117,22 +119,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    //public bool isGrounded()
-    //{
-    //    if (Physics2D.BoxCast(transform.position, boxSize, 0, -transform.up, castDistance, groundLayer))
-    //    {
-    //        return true;
-    //    }
-    //    else
-    //    {
-    //        return false;
-    //    }
-    //}
-
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.DrawWireCube(transform.position - transform.up * castDistance, boxSize);
-    //}
+   
 
     private void MoveCharacter(float horizontal, float vertical)
     {
@@ -145,17 +132,10 @@ public class PlayerController : MonoBehaviour
         if (vertical > 0 && isGrounded)
         {
             Debug.Log(vertical);
-            //animator.SetBool("Jump", true);
-            //playerJumpRequest = true;
+            animator.SetTrigger("Jump");
             rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
         }
 
-        //if (playerJumpRequest)
-        //{
-        //    rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
-        //    isGrounded = false;
-        //    playerJumpRequest = false;
-        //}
     }
 
     private void PlayMovementAnimation(float horizontal, float vertical)
@@ -174,23 +154,23 @@ public class PlayerController : MonoBehaviour
         transform.localScale = scale;
 
         //Jump
-        
 
-            if (vertical > 0)
-            {
-                animator.SetBool("Jump", true);
-            }
-            else
-            {
-                animator.SetBool("Jump", false);
-            }
 
-        
+        //if (vertical > 0)
+        //{
+        //    animator.SetTrigger("Jump");
+        //}
+        //else
+        //{
+        //    animator.SetTrigger("Jump");
+        //}
+
+
     }
 
     private void OnCollisionStay2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Ground"))
+        if (other.transform.tag == "Ground")
         {
             isGrounded = true;
         }
@@ -198,7 +178,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Ground"))
+        if (other.transform.tag == "Ground")
         {
             isGrounded = false;
         }
@@ -213,10 +193,18 @@ public class PlayerController : MonoBehaviour
     public void KillPlayer()
     {
         Debug.Log("Kill Player");
+        animator.SetTrigger("DeathTrigger");
         //Destroy(gameObject);
         gameOverController.PlayerDied();
         this.enabled = false;
         //ReloadLevel();
+    }
+
+    public void MoveToNextlevel()
+    {
+        Debug.Log("n");
+        gameOverController.NextLevel();
+        this.enabled = true;
     }
 
     //private void ReloadLevel()

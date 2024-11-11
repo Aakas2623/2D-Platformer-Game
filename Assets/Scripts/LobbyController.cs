@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+//using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class NewMonoBehaviourScript : MonoBehaviour
@@ -8,6 +8,8 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
     public Button buttonPlay;
     public Button buttonExit;
+
+    public GameObject LevelSelection;
 
     private void Awake()
     {
@@ -17,7 +19,8 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
     private void PlayGame()
     {
-        SceneManager.LoadScene(1);
+        //SceneManager.LoadScene(1);
+        LevelSelection.SetActive(true);
     }
 
     public void QuitGame()

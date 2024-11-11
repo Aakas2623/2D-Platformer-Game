@@ -7,11 +7,13 @@ public class GameOverController : MonoBehaviour
 
     [SerializeField] private Button buttonRestart;
     [SerializeField] private Button buttonQuit;
+    [SerializeField] private Button buttonNext;
 
     private void Awake()
     {
         buttonRestart.onClick.AddListener(ReloadLevel);
         buttonQuit.onClick.AddListener(MainMenu);
+        buttonNext.onClick.AddListener(NextLevel);
     }
 
     public void PlayerDied()
@@ -30,5 +32,12 @@ public class GameOverController : MonoBehaviour
     {
         SceneManager.LoadScene(0);
         this.gameObject.SetActive(false);
+    }
+
+    public void NextLevel()
+    {
+        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        SceneManager.LoadScene(nextSceneIndex);
+
     }
 }

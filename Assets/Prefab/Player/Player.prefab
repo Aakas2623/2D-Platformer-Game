@@ -203,7 +203,8 @@ MonoBehaviour:
   gameOverController: {fileID: 0}
   animator: {fileID: 2835545025017564746}
   speed: 8
-  jump: 50
+  jump: 20
+  rb2d: {fileID: 4127071606117615348}
 --- !u!1 &5810053616725934740
 GameObject:
   m_ObjectHideFlags: 0
