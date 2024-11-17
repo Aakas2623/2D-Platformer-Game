@@ -4,9 +4,15 @@ using System;
 
 public class ScoreController : MonoBehaviour
 {
-    private TextMeshProUGUI scoreText;
+    TextMeshProUGUI scoreText;
 
-    private int score = 0;
+    int score = 0;
+
+    [SerializeField] PlayerController playerObject;
+
+    public CanvasRenderer[] healthImageList;
+
+    [SerializeField] GameObject GameOverUIPanel;
 
     private void Awake()
     {
@@ -15,7 +21,19 @@ public class ScoreController : MonoBehaviour
 
     private void Start()
     {
+        GameOverUIPanel.SetActive(false);
+
+        foreach (CanvasRenderer img in healthImageList)
+        {
+            img.gameObject.SetActive(true);
+        }
+
         RefreshUI();    
+    }
+
+    private void Update()
+    {
+        RefreshHealthUI();
     }
 
     public void IncreaseScore(int increment)
@@ -27,5 +45,26 @@ public class ScoreController : MonoBehaviour
     private void RefreshUI()
     {
         scoreText.text = "Score : " + score;
+    }
+
+    private void RefreshHealthUI()
+    {
+        int currentPlayerLives = playerObject.getPlayerLives();
+
+        foreach (CanvasRenderer img in healthImageList)
+        {
+            img.gameObject.SetActive(false);
+        }
+
+        for (int i = 0; i < currentPlayerLives; i++)
+        {
+            healthImageList[i].gameObject.SetActive(true);
+        }
+    }
+
+    public void ActivateGameOverPanel()
+    {
+        GameOverUIPanel.SetActive(true);
+        
     }
 }

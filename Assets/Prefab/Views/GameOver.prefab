@@ -616,7 +616,7 @@ GameObject:
   - component: {fileID: 1698202819125548528}
   - component: {fileID: 5435933647645006311}
   - component: {fileID: 1487762779911994156}
-  - component: {fileID: 8002009919945053127}
+  - component: {fileID: 7230329084295517840}
   m_Layer: 5
   m_Name: GameOver
   m_TagString: Untagged
@@ -684,7 +684,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8002009919945053127
+--- !u!114 &7230329084295517840
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -698,4 +698,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonRestart: {fileID: 5128019237111424431}
   buttonQuit: {fileID: 7676608228856371762}
-  buttonNext: {fileID: 0}

@@ -756,7 +756,7 @@ GameObject:
   - component: {fileID: 8971964916243040730}
   - component: {fileID: 3736707049413108307}
   - component: {fileID: 3217456440578253466}
-  - component: {fileID: 4583740485590430912}
+  - component: {fileID: 4964360674862584195}
   m_Layer: 5
   m_Name: LevelComplete
   m_TagString: Untagged
@@ -825,7 +825,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4583740485590430912
+--- !u!114 &4964360674862584195
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -834,7 +834,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6722212588568143390}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f8fc2e545103474a9e465b053ec2173, type: 3}
+  m_Script: {fileID: 11500000, guid: 2db40748c53d9054a9dc35eeacd7e0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   buttonRestart: {fileID: 7689775363139983573}

@@ -15,134 +15,158 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Rigidbody2D rb2d;
 
-    private bool isGrounded = false;
+    bool isGrounded = false;
+    bool isDead = false;
 
-    //[SerializeField] private SpriteRenderer[] hearts;
-    //[SerializeField] private GameObject deathUIPanel;
-    //[SerializeField] private CanvasRenderer[] hearts;
+    Camera mainCamera;
 
-    //private int health;
-    private Camera mainCamera;
+    [SerializeField] private int playerLives;
 
-    //private bool isDead = false;
-
-    //private bool playerJumpRequest = false;
-
-    //public Vector2 boxSize;
-    //public float castDistance;
-    //public LayerMask groundLayer;
-
-    /*private BoxCollider2D boxCol;
+    [SerializeField] private BoxCollider2D boxCol;
     private Vector2 boxColInitSize;
-    private Vector2 boxColInitOffset;*/
+    private Vector2 boxColInitOffset;
 
-    private void Awake()
-    {
-        rb2d = gameObject.GetComponent<Rigidbody2D>();
-    }
+    //private void Awake()
+    //{
+    //    rb2d = gameObject.GetComponent<Rigidbody2D>();
+    //}
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    /*void Start()
+
+    private void Start()
     {
-        //Fetching initial collider properties
+        mainCamera = Camera.main;
         boxColInitSize = boxCol.size;
         boxColInitOffset = boxCol.offset;
-    }*/
+    }
 
-    // Update is called once per frame
-
-   // private void Start()
+    //private void Update()
     //{
-    //    //Initializing health with the number of hearts
-    //    health = hearts.Length;
+    //    float horizontal = Input.GetAxisRaw("Horizontal");
+    //    bool vertical = Input.GetKeyDown(KeyCode.Space);
 
-        //mainCamera = Camera.main;
-    //}
-    //public void DecreaseHealth()
-    //{
-    //    health--;
+    //    HorizontalAnimation(horizontal);
+    //    MoveCharacter(horizontal);
+    //    MovePlayerVertically(vertical);
 
-    //    HandleHealthUI();
-    //    if (health <= 0)
+
+
+    //    PlayJumpAnimation(VerticalInput);
+
+    //    if (Input.GetKey(KeyCode.LeftControl))
     //    {
-    //        PlayDeathAnimation();
-    //        PlayerDeath();
+    //        Crouch(true);
+    //    }
+    //    else
+    //    {
+    //        Crouch(false);
+    //    }
+
+    //}
+
+    //private void MoveCharacter(float horizontal)
+    //{
+    //     Horizontal character movement
+    //    Vector3 newPosition = transform.position;
+    //    newPosition.x += horizontal * speed * Time.deltaTime;
+    //    transform.position = newPosition;
+    //}
+
+    //private void HorizontalAnimation(float horizontal)
+    //{
+    //    Horizontal animation
+    //    animator.SetFloat("Speed", Mathf.Abs(horizontal));
+
+    //    Flipping the player
+    //    Vector2 scale = transform.localScale;
+    //    if (horizontal < 0)
+    //    {
+    //        scale.x = -1f * Mathf.Abs(scale.x);
+    //    }
+    //    else if (horizontal > 0)
+    //    {
+    //        scale.x = Mathf.Abs(scale.x);
+    //    }
+    //    transform.localScale = scale;
+    //}
+
+    //public void MovePlayerVertically(bool vertical)
+    //{
+    //    if (vertical)
+    //    {
+    //        Debug.Log("pressing space key");
+    //    }
+
+    //    if (vertical && isGrounded)
+    //    {
+    //        Debug.Log("Jumping");
+
+    //        rb2d.AddForce(new Vector2(0, jump), ForceMode2D.Impulse);
+    //        animator.SetBool("isGrounded", false);
     //    }
     //}
 
-    //public void PlayerDeath()
+    //private void OnCollisionStay2D(Collision2D other)
     //{
-    //    isDead = true;
-    //    mainCamera.transform.parent = null;
-    //    deathUIPanel.gameObject.SetActive(true);
-    //    rb2d.constraints = RigidbodyConstraints2D.FreezePosition;
-    //    ReloadLevel();
-    //}
-
-    //public void PlayDeathAnimation()
-    //{
-    //    animator.SetTrigger("Die");
-    //}
-
-    //private void ReloadLevel()
-    //{
-    //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    //}
-
-    //public void HandleHealthUI()
-    //{
-    //    for (int i = 0; i < hearts.Length; i++)
+    //    if (other.transform.tag == "Ground")
     //    {
-    //        hearts[i].color = (i < health) ? Color.red : Color.black;
+    //        animator.SetBool("isGrounded", true);
+    //        Debug.Log("on Ground");
+    //        isGrounded = true;
+    //    }
+    //}
+
+    //private void OnCollisionExit2D(Collision2D other)
+    //{
+    //    if (other.transform.tag == "Ground")
+    //    {
+    //        animator.SetBool("isGrounded", false);
+    //        Debug.Log("In air");
+    //        isGrounded = false;
+    //        animator.SetTrigger("Jump");
     //    }
     //}
 
     private void Update()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Jump");
-        MoveCharacter(horizontal, vertical);
-        PlayMovementAnimation(horizontal, vertical);
-
-        /*float VerticalInput = Input.GetAxis("Vertical");
-
-        PlayJumpAnimation(VerticalInput);
-
-        if (Input.GetKey(KeyCode.LeftControl))
+        float horizontalInput = Input.GetAxis("Horizontal");
+        if (isDead == false)
         {
-            Crouch(true);
-        }
-        else
-        {
-            Crouch(false);
-        }*/
-
-    }
-
-   
-
-    private void MoveCharacter(float horizontal, float vertical)
-    {
-        //move player hoizonatlly
-        Vector3 position = transform.position;
-        position.x += horizontal * speed * Time.deltaTime;
-        transform.position = position;
-
-        //move player vertically
-        if (vertical > 0 && isGrounded)
-        {
-            Debug.Log(vertical);
-            animator.SetTrigger("Jump");
-            rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
+            PlayerMovement(horizontalInput);
+            PlayerAnimation(horizontalInput);
         }
 
     }
 
-    private void PlayMovementAnimation(float horizontal, float vertical)
+    public void PlayerMovement(float horizontalInput)
     {
+        rb2d.linearVelocity = new Vector2(horizontalInput * speed, rb2d.linearVelocity.y);
+
+        if (Input.GetButtonDown("Jump") && isGrounded)
+        {
+            rb2d.linearVelocity = new Vector2(rb2d.linearVelocity.x, jump);
+        }
+        if (Input.GetButtonUp("Jump") && rb2d.linearVelocity.y > 0f)
+        {
+            rb2d.linearVelocity = new Vector2(rb2d.linearVelocity.x, rb2d.linearVelocity.y * -0.5f);
+        }
+
+    }
+
+    private void MoveCharacter(float horizontal)
+    {
+        // Horizontal character movement
+        Vector3 newPosition = transform.position;
+        newPosition.x += horizontal * speed * Time.deltaTime;
+        transform.position = newPosition;
+    }
+
+    private void PlayerAnimation(float horizontal)
+    {
+        //Horizontal animation
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
 
-        Vector3 scale = transform.localScale;
+        //Flipping the player
+        Vector2 scale = transform.localScale;
         if (horizontal < 0)
         {
             scale.x = -1f * Mathf.Abs(scale.x);
@@ -153,32 +177,62 @@ public class PlayerController : MonoBehaviour
         }
         transform.localScale = scale;
 
-        //Jump
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            PlayCrouchAnimation(true);
+        }
+        else
+        {
+            PlayCrouchAnimation(false);
+        }
 
-
-        //if (vertical > 0)
-        //{
-        //    animator.SetTrigger("Jump");
-        //}
-        //else
-        //{
-        //    animator.SetTrigger("Jump");
-        //}
-
-
+        if (Input.GetButtonDown("Jump") && isGrounded)
+        {
+            PlayJumpAnimation();
+        }
     }
+
+
+
+    public void PlayCrouchAnimation(bool crouchValue)
+    {
+        if (crouchValue == true)
+        {
+            float offX = -0.12038f;
+            float offY = 0.56309f;
+
+            float sizeX = 0.91509f;
+            float sizeY = 1.2508f;
+
+            boxCol.size = new Vector2(sizeX, sizeY);
+            boxCol.offset = new Vector2(offX, offY);
+        }
+
+        else
+        {
+            boxCol.size = boxColInitSize;
+            boxCol.offset = boxColInitOffset;
+        }
+
+        animator.SetBool("Crouch", crouchValue);
+    }
+
+    public void PlayJumpAnimation()
+    {
+        animator.SetTrigger("Jump");
+    }
+
 
     private void OnCollisionStay2D(Collision2D other)
     {
-        if (other.transform.tag == "Ground")
+        if (other.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
         }
     }
-
     private void OnCollisionExit2D(Collision2D other)
     {
-        if (other.transform.tag == "Ground")
+        if (other.gameObject.CompareTag("Ground"))
         {
             isGrounded = false;
         }
@@ -190,65 +244,67 @@ public class PlayerController : MonoBehaviour
         scoreController.IncreaseScore(10);
     }
 
+    public int getPlayerLives()
+    {
+        return playerLives;
+    }
+
+    public void DecreaseHealth(int damageValue)
+    {
+        playerLives -= damageValue;
+        CheckPlayerDeath();
+    }
+
+    public void CheckPlayerDeath()
+    {
+        if (playerLives < 1)
+        {
+            KillPlayer();
+        }
+    }
+
     public void KillPlayer()
     {
         Debug.Log("Kill Player");
         animator.SetTrigger("DeathTrigger");
-        //Destroy(gameObject);
-        gameOverController.PlayerDied();
+        //gameOverController.PlayerDied();
         this.enabled = false;
-        //ReloadLevel();
+
+        scoreController.ActivateGameOverPanel();
     }
 
-    public void MoveToNextlevel()
-    {
-        Debug.Log("n");
-        gameOverController.NextLevel();
-        this.enabled = true;
-    }
 
-    //private void ReloadLevel()
+
+    //public void Crouch(bool crouch)
     //{
-    //    SceneManager.LoadScene(0);
+    //    if (crouch == true)
+    //    {
+    //        float offX = -0.12038f;     //Offset X
+    //        float offY = 0.56309f;      //Offset Y
+
+    //        float sizeX = 0.91509f;     //Size X
+    //        float sizeY = 1.2508f;     //Size Y
+
+    //        boxCol.size = new Vector2(sizeX, sizeY);   //Setting the size of collider
+    //        boxCol.offset = new Vector2(offX, offY);   //Setting the offset of collider
+    //    }
+
+    //    else
+    //    {
+    //        //Reset collider to initial values
+    //        boxCol.size = boxColInitSize;
+    //        boxCol.offset = boxColInitOffset;
+    //    }
+
+    //    //Play Crouch animation
+    //    animator.SetBool("Crouch", crouch);
     //}
-
-    /*public void Crouch(bool crouch)
-    {
-        if (crouch == true)
-        {
-            float offX = -0.12038f;     //Offset X
-            float offY = 0.56309f;      //Offset Y
-
-            float sizeX = 0.91509f;     //Size X
-            float sizeY = 1.2508f;     //Size Y
-
-            boxCol.size = new Vector2(sizeX, sizeY);   //Setting the size of collider
-            boxCol.offset = new Vector2(offX, offY);   //Setting the offset of collider
-        }
-
-        else
-        {
-            //Reset collider to initial values
-            boxCol.size = boxColInitSize;
-            boxCol.offset = boxColInitOffset;
-        }
-
-        //Play Crouch animation
-        animator.SetBool("Crouch", crouch);
-    }
-
-
-    public void PlayJumpAnimation(float vertical)
-    {
-        if (vertical > 0)
-        {
-            animator.SetTrigger("Jump");
-        }
-    }*/
 
 
 
 }
+
+
 
 
 
