@@ -1,0 +1,41 @@
+using System;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
+[RequireComponent(typeof(Button))]
+public class LevleLoader : MonoBehaviour
+{
+    private Button button;
+
+    public string LevelName;
+
+    private void Awake()
+    {
+        button = GetComponent<Button>();
+        button.onClick.AddListener(onClick);
+    }
+
+    private void onClick()
+    {
+        LevelStatus levelStatus = LevelManager.Instance.GetLevelStatus(LevelName);
+        switch(levelStatus)
+        {
+            case LevelStatus.Locked:
+                Debug.Log("Locked");
+                break;
+
+            case LevelStatus.Unlocked:
+                SoundManager.Instance.Play(Sounds.ButtonClick);
+                SceneManager.LoadScene(LevelName);
+                break;
+
+
+            case LevelStatus.Completed:
+                SoundManager.Instance.Play(Sounds.ButtonClick);
+                SceneManager.LoadScene(LevelName);
+                break;
+        }
+        
+    }
+}
